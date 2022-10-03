@@ -1,6 +1,7 @@
 package guru.springframework.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by jt on 6/13/17.
@@ -24,9 +25,13 @@ public class Recipe {
 
     @Lob
     private Byte[] image;
-
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "recipe")
+    private Set<Ingredient> ingredients;
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
+    @ManyToMany
+    @JoinTable(name = "recipe_category",joinColumns = @JoinColumn(name="recipe_id"),inverseJoinColumns = @JoinColumn(name="category_id"))
+    private Set<Category> categories;
 
     public Long getId() {
         return id;
@@ -100,11 +105,27 @@ public class Recipe {
         this.image = image;
     }
 
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
     public Notes getNotes() {
         return notes;
     }
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }
