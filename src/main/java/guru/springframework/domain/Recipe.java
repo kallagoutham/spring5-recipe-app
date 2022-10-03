@@ -21,7 +21,7 @@ public class Recipe {
     private String url;
     private String directions;
     //todo add
-    //private Difficulty difficulty;
+    private Difficulty difficulty;
 
     @Lob
     private Byte[] image;
